@@ -9,7 +9,7 @@
 
 *A modern, responsive web application for efficient school data management*
 
-[🚀 Live Demo](#) | [📖 Documentation](#-quick-start) | [🐛 Report Bug](#-support--help) | [💡 Request Feature](#-support--help)
+[🚀 Live Demo](https://reno-demo.vercel.app/) | [📖 Documentation](#-quick-start) | [🐛 Report Bug](#-support--help) | [💡 Request Feature](#-support--help)
 
 </div>
 
