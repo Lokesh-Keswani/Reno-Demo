@@ -12,10 +12,11 @@ const nextConfig = {
       },
     ],
   },
-  // Optimize for Vercel deployment
-  output: 'standalone',
+  // Remove standalone for Vercel
   poweredByHeader: false,
   compress: true,
+  // Ensure proper trailing slash handling
+  trailingSlash: false,
 }
 
 module.exports = nextConfig
