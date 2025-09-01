@@ -16,6 +16,10 @@ async function testConnection() {
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
+      ssl: { rejectUnauthorized: false }, // For cloud databases
+      connectTimeout: 60000,
+      acquireTimeout: 60000,
+      timeout: 60000
     });
 
     console.log('✅ Database connected successfully!');
@@ -54,11 +58,13 @@ async function testConnection() {
     
   } catch (error) {
     console.error('❌ Database connection failed:', error.message);
-    console.log('\n🔧 Troubleshooting tips:');
-    console.log('1. Make sure MySQL server is running on port 3000');
-    console.log('2. Check your password is correct: 270778');
-    console.log('3. Try connecting manually with full path:');
-    console.log('   "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysql.exe" -u root -p -P 3000');
+    console.error('Error code:', error.code);
+    console.log('\n🔧 Troubleshooting tips for cloud database:');
+    console.log('1. Check your internet connection');
+    console.log('2. Verify your cloud database credentials are correct');
+    console.log('3. Make sure your database server allows remote connections');
+    console.log('4. Check if your IP is whitelisted (if required)');
+    console.log('5. Verify the database name exists on the server');
   }
 }
 
