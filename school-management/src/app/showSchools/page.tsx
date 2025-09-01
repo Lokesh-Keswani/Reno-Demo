@@ -23,12 +23,22 @@ export default function ShowSchools() {
 
   // Helper function to parse images from JSON string
   const parseImages = (imageStr: string): string[] => {
-    if (!imageStr) return []
+    console.log('Parsing images for:', imageStr?.substring(0, 100) + '...')
+    if (!imageStr) {
+      console.log('No image string provided')
+      return []
+    }
     try {
       const parsed = JSON.parse(imageStr)
-      return Array.isArray(parsed) ? parsed : [imageStr]
+      const result = Array.isArray(parsed) ? parsed : [imageStr]
+      console.log('Parsed images count:', result.length)
+      result.forEach((img, idx) => {
+        console.log(`Image ${idx}: ${img.startsWith('data:') ? 'base64 data URL' : 'file path'} - length: ${img.length}`)
+      })
+      return result
     } catch {
       // If not JSON, treat as single image path
+      console.log('Failed to parse as JSON, treating as single image')
       return [imageStr]
     }
   }
@@ -139,7 +149,14 @@ export default function ShowSchools() {
                      const images = parseImages(school.image)
                      const currentIndex = getCurrentImageIndex(school.id)
                      
+                     console.log(`School "${school.name}" (ID: ${school.id}):`, {
+                       rawImage: school.image?.substring(0, 50) + '...',
+                       parsedImagesCount: images.length,
+                       currentIndex
+                     })
+                     
                      if (images.length === 0) {
+                       console.log(`No images found for school ${school.name}`)
                        return (
                          <div className="flex items-center justify-center h-full">
                            <div className="text-6xl text-gray-400">🏫</div>
@@ -150,13 +167,23 @@ export default function ShowSchools() {
                      return (
                        <div className="h-full relative">
                          {/* Current Image */}
-                         <Image
-                           src={images[currentIndex]}
-                           alt={`${school.name} - Image ${currentIndex + 1}`}
-                           fill
-                           className="object-cover transition-opacity duration-300"
-                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                         />
+                         {images[currentIndex].startsWith('data:') ? (
+                           // Base64 image - use regular img tag
+                           <img
+                             src={images[currentIndex]}
+                             alt={`${school.name} - Image ${currentIndex + 1}`}
+                             className="w-full h-full object-cover transition-opacity duration-300"
+                           />
+                         ) : (
+                           // Regular file path - use Next.js Image
+                           <Image
+                             src={images[currentIndex]}
+                             alt={`${school.name} - Image ${currentIndex + 1}`}
+                             fill
+                             className="object-cover transition-opacity duration-300"
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                           />
+                         )}
                          
                          {/* Navigation Arrows (show only if multiple images) */}
                          {images.length > 1 && (
