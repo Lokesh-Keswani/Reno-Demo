@@ -5,7 +5,17 @@ const nextConfig = {
   },
   images: {
     domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
+  // Optimize for Vercel deployment
+  output: 'standalone',
+  poweredByHeader: false,
+  compress: true,
 }
 
 module.exports = nextConfig

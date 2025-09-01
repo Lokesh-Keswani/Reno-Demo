@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vercel-build": "next build",
+    "test-db": "node test-connection.js"
   },
   "dependencies": {
     "dotenv": "^17.2.1",
