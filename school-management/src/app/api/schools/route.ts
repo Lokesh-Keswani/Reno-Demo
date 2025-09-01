@@ -61,7 +61,12 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error adding school:', error);
     return NextResponse.json(
-      { success: false, message: 'Error adding school' },
+      { 
+        success: false, 
+        message: 'Error adding school', 
+        error: error instanceof Error ? error.message : 'Unknown error',
+        details: process.env.NODE_ENV === 'development' ? error : undefined
+      },
       { status: 500 }
     );
   }
@@ -74,7 +79,12 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching schools:', error);
     return NextResponse.json(
-      { success: false, message: 'Error fetching schools' },
+      { 
+        success: false, 
+        message: 'Error fetching schools',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        details: process.env.NODE_ENV === 'development' ? error : undefined
+      },
       { status: 500 }
     );
   }
