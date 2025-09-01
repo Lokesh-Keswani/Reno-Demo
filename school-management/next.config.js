@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
     domains: ['localhost'],
     remotePatterns: [
@@ -12,10 +9,8 @@ const nextConfig = {
       },
     ],
   },
-  // Remove standalone for Vercel
   poweredByHeader: false,
   compress: true,
-  // Ensure proper trailing slash handling
   trailingSlash: false,
 }
 
