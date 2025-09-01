@@ -1,11 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
+  images: {
+    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
-  typescript: {
-    ignoreBuildErrors: true, // temporary fix
-  }
+  poweredByHeader: false,
+  compress: true,
+  trailingSlash: false,
+  // Ensure proper build output
+  distDir: '.next',
 }
 
 module.exports = nextConfig
